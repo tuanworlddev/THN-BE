@@ -46,11 +46,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
                     }
                 }
             }
-            case "offer", "answer", "candidate" -> {
+            case "offer", "answer", "candidate", "filter" -> {
                 String receiverId = requestJson.getString("receiverId");
                 if (receiverId != null) {
                     WebSocketSession receiverSession = sessions.get(receiverId);
-                    if (receiverSession.isOpen()) {
+                    if (receiverSession != null && receiverSession.isOpen()) {
                         JSONObject data = requestJson.getJSONObject("data");
                         JSONObject response = new JSONObject();
                         response.put("command", command);
